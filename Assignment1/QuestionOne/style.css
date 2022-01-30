@@ -1,0 +1,22 @@
+div{
+    text-align: center;
+}
+h1{
+    color: rgb(115, 155, 230);
+}
+
+
+#body div p{
+    margin:40px;
+}
+
+#body button{
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    
+}
+
+#body button:hover{
+    background-color: rgb(205, 232, 233);
+}

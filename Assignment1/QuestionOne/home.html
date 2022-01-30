@@ -1,0 +1,25 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>Passing Function as parameter</title>
+   <link rel="stylesheet" href="./style.css">
+</head>
+<body id="body">
+<div>
+<h1>Assignment One Demo</h1>
+<p>Passing Function as parameter to another Function</p>
+<button onclick="outerFunction(innerFunction)">Click to Test Functionality</button>
+</div>
+
+<script>
+    function innerFunction(){
+        return "Function passed succesfully";
+    }
+
+    function outerFunction(func) {
+        alert(func());
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+Quiz
+
+
+
+1. How to check how our web application would perform on a low 3g network?
+
+A.In Developer tools ,select Network tab and then in that select Network conditions tab.Under a dropdown named Network throtling we can set our desired network speed as per our requirement which is low 3g her.
+
+
+2.How to preview the response we get from an API call?
+
+A.Run the site and in  Developer tools ,select Network tab and select required API call in the list obtained.Under its submenu we can see a option called response.
+
+
+3.How to check how an element looks on hovering using Dev Tools?
+
+A.Open up Developer Tools and go to Sources and pause javascript.Now interact with UI to see effets of hovering and everything else related to special functionalities in elements tab of DevTools.
+
+4.How do we edit the HTML and CSS code of a page?
+
+A.Open up Developer Tools and go to Elements and select the part of code of HTML or CSS you want to edit and change it to see immediate effects.But these are static changes,once refreshed all these will be set to default.
+
+5.Which tab contains Local Storage and how do we inspect it?
+
+A.In developer tools go to Applicaition and under that we can see all types of storage which includes local storage,session storage,Cache etc,,.

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Arrow Function demo</title>
+</head>
+
+<body>
+    <h2 style="text-align: center;"> Arrow Function with Two arguments</h2>
+    <p>
+        Argument 1: Sai
+        <br>
+        Argument 2: Lokesh
+    </p>
+    <p>Next line shows a 2 letter string that represents the first letter of both the arguments </p>
+
+    <p> Result is : <span id="result"></span> </p>
+    <script>
+
+        let myFunction = (firstName, lastName) => firstName[0] + lastName[0];
+
+        document.getElementById("result").innerHTML = myFunction("Sai", "Lokesh");
+
+    </script>
+
+</body>
+
+</html>
