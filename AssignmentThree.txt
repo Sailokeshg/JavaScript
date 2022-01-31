@@ -41,6 +41,6 @@ Ans.      const person = {
 				      age: 92
 			    }
 			   
-		const { name, age } = person;
+		const { name: "oam Chomsky", age: 92} = person;
 		console.log(name);
 		console.log(age);	 
