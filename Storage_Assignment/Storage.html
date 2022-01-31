@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Storage Demo</title>
+</head>
+
+<body>
+    <p><button onclick="sessionCounter()" type="button">Session Counter</button></p>
+    <div id="session" ></div>
+    <hr>
+    <p><button onclick="localCounter()" type="button">Local Counter</button></p>
+    <div id="local" ></div>
+
+    <p>Opening the page in another tab will reset the session coount</p>
+    <p>To reset local storage we must clear page data or recent history or clear cookies </p>
+
+    <script>
+
+        function sessionCounter() {
+            if (typeof (Storage) !== "undefined") {
+                if (sessionStorage.clickcount) {
+                    sessionStorage.clickcount = Number(sessionStorage.clickcount) + 1;
+                } else {
+                    sessionStorage.clickcount = 1;
+                }
+                document.getElementById("session").innerHTML = "Session Count clicks: " + sessionStorage.clickcount;
+            }
+        }
+        function localCounter() {
+            if (typeof (Storage) !== "undefined") {
+                if (localStorage.clickcount) {
+                    localStorage.clickcount = Number(localStorage.clickcount) + 1;
+                } else {
+                    localStorage.clickcount = 1;
+                }
+                document.getElementById("local").innerHTML = "Local Count clicks: " + localStorage.clickcount;
+            }
+        }
+        if (sessionStorage.clickcount) {
+            document.getElementById("session").innerHTML = "Session Count clicks: " + sessionStorage.clickcount;
+        } else {
+            document.getElementById("session").innerHTML = "Session Count clicks: 0";
+        }
+        if(localStorage.clickcount){
+        document.getElementById("local").innerHTML = "Local Count clicks: " + localStorage.clickcount;
+
+        }
+        else{
+            document.getElementById("local").innerHTML = "Local Count clicks:0 " ;
+        }
+
+
+
+    </script>
+</body>
+
+</html>
