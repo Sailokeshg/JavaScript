@@ -1,0 +1,67 @@
+.row .col-md-3{
+    text-align: center;
+    font-weight :500;
+    padding-top: 20px;
+}
+
+.vertical {
+    border-left: 3px solid rgb(39, 35, 35);
+    height: 900px;
+}
+
+.col-md-1{
+    width: 1px;
+}
+
+ .row .col-md-8{
+    text-align: center;
+    font-weight :500;
+    padding-top: 20px;
+}
+
+.search-table{
+    width: 300px;
+    position: relative;
+    margin: 30px 3px 0px 10px;
+    box-shadow: 0 4px 2px -2px gray;
+}
+
+.search-menu{
+    width: 550px;
+    position: relative;
+    margin: 30px 3px 0px 10px;
+    box-shadow: 0 4px 2px -2px gray;
+}
+
+.table-details{
+    display: inline-flex;
+    position: relative;
+    right: 140px;
+    padding-top: 12px;
+    font-weight:350;
+}
+
+.card{
+    margin-left:10px;
+    margin-bottom: 10px;
+    padding-top:10px;
+}
+
+ .card-one{
+    margin-top: 30px;
+}
+
+.card .card-title{
+    text-align: left;
+}
+
+.cost{
+    text-align: left;
+    font-weight: 350;
+    padding-top: 10px;
+}
+ .menu-cards .card{
+    margin-left:10px;
+    margin-bottom: 10px;
+    padding-bottom:10px;
+}
