@@ -17,10 +17,13 @@
         <div class="col-md-3">
             <span>Tables</span>
             <div class="search-table form-outline">
-                <input type="search" class="form-control" id="search-table" placeholder="Search table">
+                <input type="search" class="form-control" id="search-table" placeholder="Search table"
+                    onkeyup="searchTable()">
             </div>
             <div id="table-cards">
-                <div class="card card-one" data-target="#myModel" data-toggle="modal" data-backdrop="true" >
+                <div class="card card-one" data-target="#myModel" data-toggle="modal" data-backdrop="true"
+                    ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)"
+                    ondragover="return dragOver(event)">
                     <div class="card-body">
                         <h5 class="card-title">Table-1</h5>
                         <div class="table-details">
@@ -29,7 +32,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card card-two"data-target="#myModel" data-toggle="modal" data-backdrop="true">
+                <div class="card card-two" data-target="#myModel" data-toggle="modal" data-backdrop="true">
                     <div class="card-body">
                         <h5 class="card-title">Table-2</h5>
                         <div class="table-details">
@@ -58,38 +61,38 @@
                     placeholder="Search menu... by course,by food">
             </div>
             <div class="menu-cards">
-                <div class="card card-one">
+                <div class="card card-one" draggable="true" ondragstart="return dragStart(ev)">
                     <div class="card-body">
                         <h5 class="card-title">Dal Fry</h5>
                         <div class="cost">120.00</div>
                         <div></div>
                     </div>
                 </div>
-                <div class="card card-two">
+                <div class="card card-two" draggable="true">
                     <div class="card-body">
                         <h5 class="card-title">Chicken Tikka Masala</h5>
                         <div class="cost">250.00</div>
                     </div>
                 </div>
-                <div class="card card-three">
+                <div class="card card-three" draggable="true">
                     <div class="card-body">
                         <h5 class="card-title">Egg Curry</h5>
                         <div class="cost">150.00</div>
                     </div>
                 </div>
-                <div class="card card-three">
+                <div class="card card-four" draggable="true">
                     <div class="card-body">
                         <h5 class="card-title">Egg Fried Rice</h5>
                         <div class="cost">80.00</div>
                     </div>
                 </div>
-                <div class="card card-three">
+                <div class="card card-five" draggable="true">
                     <div class="card-body">
                         <h5 class="card-title">Veg Biryani</h5>
                         <div class="cost">100.00</div>
                     </div>
                 </div>
-                <div class="card card-three">
+                <div class="card card-six" draggable="true">
                     <div class="card-body">
                         <h5 class="card-title">Chicken Biryani</h5>
                         <div class="cost">160.00</div>
@@ -99,42 +102,76 @@
         </div>
     </div>
 
-    <div class="modal" id="myModal"  role="dialog" tabindex="-1" aria-hidden="true" data-backdrop="true">
+    <div class="modal" id="myModal" role="dialog" data-backdrop="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title"></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                      </button>
+                    </button>
                 </div>
                 <div class="modal-body">
-                    <p>Some text in the modal.</p>
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE SESSION(GENERATE BILL)</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE SESSION(GENERATE
+                        BILL)</button>
                 </div>
             </div>
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.2/umd/popper.min.js" integrity="sha512-aDciVjp+txtxTJWsp8aRwttA0vR2sJMk/73ZT7ExuEHv7I5E6iyyobpFOlEFkq59mWW8ToYGuVZFnwhwIUisKA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.2/umd/popper.min.js"
+        integrity="sha512-aDciVjp+txtxTJWsp8aRwttA0vR2sJMk/73ZT7ExuEHv7I5E6iyyobpFOlEFkq59mWW8ToYGuVZFnwhwIUisKA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript">
+
+
         $(document).ready(function () {
             $('#table-cards .card-one').click(function () {
-                $('h4').replaceWith('Table 1 | order details')
+               document.getElementsByTagName('h4')[0].innerHTML="Table 1 | order details";
+
                 $('#myModal').modal('show');
             })
+
             $('#table-cards .card-two').click(function () {
-                $('h4').replaceWith('Table 2 | order details')
+                document.getElementsByTagName('h4')[0].innerHTML="Table 2 | order details";
                 $('#myModal').modal('show');
             })
             $('#table-cards .card-three').click(function () {
-                $('h4').replaceWith('Table 3 | order details')
+                document.getElementsByTagName('h4')[0].innerHTML='Table 3 | order details';
                 $('#myModal').modal('show');
             })
         });
+
+        function searchTable() {
+            const searchBox = document.getElementById("search-table").value.toUpperCase();
+            const items = document.getElementById("table-cards")
+            const item = items.getElementsByClassName('card')
+            console.log(searchBox)
+            
+            for (var i = 0; i < item.length; i++) {
+
+                const match = item[i].getElementsByTagName('h5')[0];
+
+
+                if (match) {
+                    let textValue = match.textContent || match.innertHTML
+
+                    if (textValue.toUpperCase().indexOf(searchBox) > -1) {
+                        item[i].style.display = "";
+                    }
+                    else {
+                        item[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+
+
     </script>
 </body>
 
