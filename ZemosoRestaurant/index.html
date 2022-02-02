@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>ZemosoRestaurant</title>
+</head>
+
+<body onload="setup()">
+    <div class="main">
+        <div id="table-info">
+            <h2>
+                Tables
+            </h2>
+            <input type="search" name="table-name" id="table_name" oninput="searchTable()" placeholder="search table">
+
+            <div id="tables">
+                <div id="table-box" ondragenter="dragEnd(event)" dropzone="move">
+                    <!-- To display current status of all tables to the left side of page -->
+                </div>
+            </div>
+        </div>
+
+        <div id="menu">
+            <h2 id="heading">
+                Menu
+            </h2>
+            <input type="search" name="menu" id="menu_search" oninput="searchMenu()" placeholder="search menu">
+            <div id="menu-items">
+                <!-- To display menu on right side of page -->
+            </div>
+
+        </div>
+        <div id="modal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div id="modal-close">
+                    <button onclick="closeModal()"  id="button-close"></button>
+                </div>
+                <div id="modal-table-name">
+                </div>
+
+                <div>
+                    <table id="table-info-items">
+                        <tr>
+                            <td>S.No</td>
+                            <td>Item Name</td>
+                            <td>Quantity</td>
+                            <td>Delete</td>
+                        </tr>
+                    </table>
+                </div>
+                <div id="modal-footer">
+                           
+                </div>
+                <div id="generate-bill">
+                        
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="./script/script.js"></script>
+</body>
+
+</html>
