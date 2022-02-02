@@ -119,7 +119,7 @@ function createTableItem(i, cost, items) {
     </div>`;
   return tableItem;
 }
-// This function creates a menu HTML Element  and returns it as string
+// This function creates a menu Element as HTML Element and returns it as string
 
 function createMenuItem(i, name, cost, category) {
   let menuItemEle = `<div id="item${i}"  class="menu-item" draggable="true" ondragstart="drag(event)">
@@ -183,7 +183,7 @@ function searchMenu() {
   if (searchKey == "") {
     showMenu();
   }
-  if (searchKey.length < 3) return;
+  if (searchKey.length <=1) return;
   let menuId = document.getElementById("menu-items");
   menuId.innerHTML = " ";
   let i = 1;
@@ -191,11 +191,11 @@ function searchMenu() {
     let { name, cost, category } = menu["item" + i];
     let lowerCaseName = name.toLowerCase();
     if (lowerCaseName.includes(searchKey)) {
-      let menuElement = createMenuItem(i, name, cost, category);
-      menuId.innerHTML += menuElement;
+      let menuEle = createMenuItem(i, name, cost, category);
+      menuId.innerHTML += menuEle;
     } else if (category.includes(searchKey)) {
-      let menuElement = createMenuItem(i, name, cost, category);
-      menuId.innerHTML += menuElement;
+      let menuEle = createMenuItem(i, name, cost, category);
+      menuId.innerHTML += menuEle;
     }
     i = i + 1;
   }
@@ -210,7 +210,6 @@ function allowDrop(ev) {
 }
 function drop(event, tableName) {
   event.preventDefault();
-  
   addItemToTable(tableName, event.dataTransfer.getData("id"));
 }
 
@@ -231,6 +230,7 @@ function addItemToTable(tableName, menuItemName) {
   refreshTables();
   searchTable();
 }
+
 var tableInfoId = document.getElementById("table-info-items");
 
 function openModal(tableName) {
