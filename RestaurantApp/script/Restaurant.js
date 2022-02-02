@@ -1,20 +1,35 @@
 
+var modal = document.getElementById("myModal")
+var cardOne = document.querySelector('#table-cards .card-one')
+var cardTwo = document.querySelector('#table-cards .card-two')
+var cardThree = document.querySelector('#table-cards .card-three')
+var closeButton = document.getElementsByClassName('close')[0];
 
-$('#table-cards .card-one').click(function () {
-
+cardOne.onclick = function () {
    document.getElementsByTagName('h4')[0].innerHTML = "Table 1 | order details";
+   modal.style.display = "block";
+}
 
-   $('#myModal').modal('show');
-})
-
-$('#table-cards .card-two').click(function () {
+cardTwo.onclick = function () {
    document.getElementsByTagName('h4')[0].innerHTML = "Table 2 | order details";
-   $('#myModal').modal('show');
-})
-$('#table-cards .card-three').click(function () {
-   document.getElementsByTagName('h4')[0].innerHTML = 'Table 3 | order details';
-   $('#myModal').modal('show');
-})
+   modal.style.display = "block";
+}
+
+cardThree.onclick = function () {
+   document.getElementsByTagName('h4')[0].innerHTML = "Table 3 | order details";
+   modal.style.display = "block";
+}
+
+window.onclick = function (event) {
+   if (event.target == modal) {
+      modal.style.display = "none";
+   }
+}
+
+closeButton.onclick = function () {
+   modal.style.display = 'none';
+
+}
 
 
 function searchTable() {
@@ -40,7 +55,7 @@ function searchTable() {
    }
 }
 
-function searchMenu(){
+function searchMenu() {
 
    const searchBox = document.getElementById("search-menu").value.toUpperCase();
    const items = document.getElementById("menu-cards")
