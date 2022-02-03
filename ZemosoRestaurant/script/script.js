@@ -234,11 +234,12 @@ var tableInfoId = document.getElementById("table-info-items");
 
 function openModal(tableName) {
   modal.style.display = "block";
-  
+
   document.getElementById("modal-table-name").innerHTML = `<h2> ${tableName.toUpperCase()}<\h2>`;
   tableInfoId.innerHTML = `<tr>
     <td>S.No</td>
     <td>Item Name</td>
+    <td>Cost</td>
     <td>Quantity</td>
     <td>Delete</td>
 </tr>`;
@@ -262,6 +263,7 @@ function createRows(tableName) {
     tableInfoId.innerHTML += `<tr>
     <td>${i}</td>
     <td>${menu[item].name}</td>
+    <td>${menu[item].cost} </td>
     <td>
     <button onclick="reduceItem('${tableName}','${item}')" class="change">-</button>
       ${quantity}
@@ -274,6 +276,7 @@ function createRows(tableName) {
     </td>   
 </tr>`;
   }
+
   let footer = document.getElementById("modal-footer");
   footer.innerHTML = "";
   let generateBillButton = document.getElementById("generate-bill");
@@ -283,7 +286,7 @@ function createRows(tableName) {
       <h2>
         Total Cost :${cost}</h2>`;
 
-    generateBillButton.innerHTML = `<button onclick="generateBill('${tableName}')" id="button-close">
+    generateBillButton.innerHTML = `<button onclick="generatePdf('${tableName}')" id="button-close">
           Close session(Generate Bill)
         </button>`;
   }
@@ -333,17 +336,20 @@ function deleteItem(tableName, item) {
   openModal(tableName);
 }
 
-function generateBill(tableName) {
-  let tables = JSON.parse(localStorage.getItem("tables"));
-  let currentTable = tables[tableName];
-  let { cost } = currentTable;
-  let emptyOrderObject = {};
-  currentTable["cost"] = 0;
-  currentTable["items"] = 0;
-  currentTable["orders"] = emptyOrderObject;
-  tables[tableName] = currentTable;
-  localStorage.setItem("tables", JSON.stringify(tables));
-  window.alert(`Receive bill of ${cost} on ${tableName}`);
+
+
+function generatePdf(tableName) {
+
+  const element = document.getElementById('table-info-items');
+  var opt = {
+    margin: 1,
+    filename: 'Bill.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
+  };
+  html2pdf().set(opt).from(element).save();
   closeModal();
   reloadTables();
+
 }
