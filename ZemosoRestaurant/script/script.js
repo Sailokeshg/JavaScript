@@ -102,10 +102,9 @@ function setup() {
   if (localStorage.getItem("tables") == null) {
     localStorage.setItem("tables", JSON.stringify(tables));
   }
-  refreshTables();
+  reloadTables();
   showMenu();
 }
-
 
 function createTableItem(i, cost, items) {
   let tableItem = `<div id="table-box" ondrop="drop(event,'table${i}')" ondragover="allowDrop(event)" onclick="openModal('table${i}')" >
@@ -119,7 +118,6 @@ function createTableItem(i, cost, items) {
     </div>`;
   return tableItem;
 }
-// This function creates a menu Element as HTML Element and returns it as string
 
 function createMenuItem(i, name, cost, category) {
   let menuItemEle = `<div id="item${i}"  class="menu-item" draggable="true" ondragstart="drag(event)">
@@ -133,7 +131,7 @@ function createMenuItem(i, name, cost, category) {
   return menuItemEle;
 }
 
-function refreshTables() {
+function reloadTables() {
   let i = 1;
   tableId.innerHTML = "";
   tables = JSON.parse(localStorage.getItem("tables"));
@@ -160,12 +158,13 @@ function showMenu() {
 function searchTable() {
   let searchKey = table_name.value;
   if (searchKey == "") {
-    refreshTables();
+    reloadTables();
     return;
   }
   let num = searchKey.split("-");
   if (num[1] != undefined && num[1] != "") {
     let tableNo = parseInt(num[1]);
+
     tables = JSON.parse(localStorage.getItem("tables"));
 
     if (tables["table" + tableNo] == undefined) return;
@@ -183,7 +182,7 @@ function searchMenu() {
   if (searchKey == "") {
     showMenu();
   }
-  if (searchKey.length <=1) return;
+  if (searchKey.length <= 1) return;
   let menuId = document.getElementById("menu-items");
   menuId.innerHTML = " ";
   let i = 1;
@@ -203,7 +202,7 @@ function searchMenu() {
 
 function drag(event) {
   event.dataTransfer.setData("id", event.target.id);
-  
+
 }
 function allowDrop(ev) {
   ev.preventDefault();
@@ -227,7 +226,7 @@ function addItemToTable(tableName, menuItemName) {
   tables[tableName].cost += parseInt(currentOrder.cost);
   tables[tableName]["items"] += 1;
   localStorage.setItem("tables", JSON.stringify(tables));
-  refreshTables();
+  reloadTables();
   searchTable();
 }
 
@@ -235,20 +234,116 @@ var tableInfoId = document.getElementById("table-info-items");
 
 function openModal(tableName) {
   modal.style.display = "block";
-  document.getElementById(
-    "modal-table-name"
-  ).innerHTML = `<h2> ${tableName.toUpperCase()}
-   <\h2>`;
+  
+  document.getElementById("modal-table-name").innerHTML = `<h2> ${tableName.toUpperCase()}<\h2>`;
   tableInfoId.innerHTML = `<tr>
     <td>S.No</td>
     <td>Item Name</td>
     <td>Quantity</td>
     <td>Delete</td>
 </tr>`;
-  
+  createRows(tableName);
 }
 
 function closeModal() {
   modal.style.display = "none";
 }
 
+
+function createRows(tableName) {
+  let i = 0;
+  let tables = JSON.parse(localStorage.getItem("tables"));
+  let { cost, orders: currentOrders } = tables[tableName];
+  console.log(cost);
+  console.log(currentOrders)
+  for (let [item, quantity] of Object.entries(currentOrders)) {
+    i++;
+    console.log(item)
+    tableInfoId.innerHTML += `<tr>
+    <td>${i}</td>
+    <td>${menu[item].name}</td>
+    <td>
+    <button onclick="reduceItem('${tableName}','${item}')" class="change">-</button>
+      ${quantity}
+    <button onclick="increaseItem('${tableName}','${item}')" class="change">+</button>
+    </td>
+    <td>
+    <button onclick="deleteItem('${tableName}','${item}')">
+    Delete
+    </button>
+    </td>   
+</tr>`;
+  }
+  let footer = document.getElementById("modal-footer");
+  footer.innerHTML = "";
+  let generateBillButton = document.getElementById("generate-bill");
+  generateBillButton.innerHTML = "";
+  if (cost != 0) {
+    footer.innerHTML = `
+      <h2>
+        Total Cost :${cost}</h2>`;
+
+    generateBillButton.innerHTML = `<button onclick="generateBill('${tableName}')" id="button-close">
+          Close session(Generate Bill)
+        </button>`;
+  }
+}
+
+function reduceItem(tableName, item) {
+  let tables = JSON.parse(localStorage.getItem("tables"));
+  let currentTable = tables[tableName];
+  if (currentTable["orders"][item] == 1) {
+    console.log("Cannot delete 1 item");
+    return;
+  }
+  let itemCost = menu[item]["cost"];
+  currentTable["orders"][item] = currentTable["orders"][item] - 1;
+  currentTable["cost"] = currentTable["cost"] - itemCost;
+  currentTable["items"] -= 1;
+  tables[tableName] = currentTable;
+  localStorage.setItem("tables", JSON.stringify(tables));
+  reloadTables();
+  openModal(tableName);
+}
+
+function increaseItem(tableName, item) {
+  let tables = JSON.parse(localStorage.getItem("tables"));
+  let currentTable = tables[tableName];
+  let itemCost = menu[item]["cost"];
+  currentTable["orders"][item] = currentTable["orders"][item] + 1;
+  currentTable["cost"] = parseInt(currentTable["cost"]) + itemCost;
+  currentTable["items"] += 1;
+  tables[tableName] = currentTable;
+  localStorage.setItem("tables", JSON.stringify(tables));
+  reloadTables();
+  openModal(tableName);
+}
+
+function deleteItem(tableName, item) {
+  let tables = JSON.parse(localStorage.getItem("tables"));
+  let currentTable = tables[tableName];
+  let itemCount = currentTable["orders"][item];
+  let itemCost = menu[item]["cost"];
+  delete currentTable["orders"][item];
+  currentTable["cost"] = parseInt(currentTable["cost"]) - itemCount * itemCost;
+  currentTable["items"] -= itemCount;
+  tables[tableName] = currentTable;
+  localStorage.setItem("tables", JSON.stringify(tables));
+  reloadTables();
+  openModal(tableName);
+}
+
+function generateBill(tableName) {
+  let tables = JSON.parse(localStorage.getItem("tables"));
+  let currentTable = tables[tableName];
+  let { cost } = currentTable;
+  let emptyOrderObject = {};
+  currentTable["cost"] = 0;
+  currentTable["items"] = 0;
+  currentTable["orders"] = emptyOrderObject;
+  tables[tableName] = currentTable;
+  localStorage.setItem("tables", JSON.stringify(tables));
+  window.alert(`Receive bill of ${cost} on ${tableName}`);
+  closeModal();
+  reloadTables();
+}

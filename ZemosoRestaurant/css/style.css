@@ -131,6 +131,7 @@ button {
   color: #dc3545;
   font-weight: bold;
   border-radius: 10px;
+  cursor: pointer;
 }
 .change {
   background-color: white;
@@ -141,6 +142,29 @@ button {
   text-align: center;
   margin-bottom: 2px;
 }
+.change {
+  background-color: white;
+  box-shadow: none;
+}
+
+#modal-footer {
+  margin-top: 2px;
+  text-align: center;
+}
+#generate-bill{
+    text-align: right;
+}
+#generate-bill button {
+  padding: 0.5rem;
+  border: none;
+  color: #dc3545;
+  font-weight: bold;
+  border-radius: 10px;
+  background-color: white;
+  border: 1px solid #dc3545;
+  cursor: pointer;
+}
+
 
 table,
 th,
@@ -155,6 +179,15 @@ table {
   text-align: center;
 }
 
+td:first-child {
+  width: 10%;
+}
+td:nth-child(3) {
+  width: 20%;
+}
+td:last-child {
+  width: 10%;
+}
 
 @media screen and (max-width: 700px) {
   #table-info {
@@ -184,6 +217,10 @@ table {
   }
   .modal-content {
     margin: 0;
+  }
+
+  td:nth-child(3) {
+    width: 10%;
   }
  
 }
